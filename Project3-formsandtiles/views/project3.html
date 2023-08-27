@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Materialize CSS Form</title>
+  <!-- Add Materialize CSS and JavaScript CDN links here -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+</head>
+<body>
+
+<div class="row">
+  <button class="btn modal-trigger" data-target="myModal">Open Form</button>
+</div>
+
+<!-- Modal Structure -->
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <h4>Modal Header</h4>
+    <form id="myForm">
+      <div class="row">
+        <div class="input-field col s6">
+          <input placeholder="Placeholder" id="first_name" type="text" class="validate">
+          <label for="first_name">First Name</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="last_name" type="text" class="validate">
+          <label for="last_name">Last Name</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input disabled value="I am not editable" id="disabled" type="text" class="validate">
+          <label for="disabled">Disabled</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="password" type="password" class="validate">
+          <label for="password">Password</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="email" type="email" class="validate">
+          <label for="email">Email</label>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="modal-close waves-effect waves-green btn-flat" onclick="submitForm()">Submit</button>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.querySelectorAll('.modal');
+    M.Modal.init(modal);
+  });
+
+  function submitForm() {
+    const firstName = document.getElementById("first_name").value;
+    const lastName = document.getElementById("last_name").value;
+    const disabledField = document.getElementById("disabled").value;
+    const password = document.getElementById("password").value;
+    const email = document.getElementById("email").value;
+    const emailInline = document.getElementById("email_inline").value;
+
+    console.log("First Name:", firstName);
+    console.log("Last Name:", lastName);
+    console.log("Disabled Field:", disabledField);
+    console.log("Password:", password);
+    console.log("Email:", email);
+    console.log("Inline Email:", emailInline);
+  }
+</script>
+</body>
+</html>
