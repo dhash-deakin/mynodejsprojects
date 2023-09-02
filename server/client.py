@@ -17,7 +17,7 @@ client_socket.send(username.encode())
 response = client_socket.recv(1024).decode()
 print(response)
 
-if "username accepted" in response.lower():
+if "Username accepted" in response:
     # Send password to the server
     client_socket.send(password.encode())
 
