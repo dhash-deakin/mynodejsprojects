@@ -20,12 +20,11 @@ valid_username = "user123"
 valid_password = "pass123"
 
 # Authentication logic
-client_socket.send(b"Hello, please enter your username:")
-received_username = client_socket.recv(1024).decode()
+received_username = client_socket.recv(1024).decode().strip()  # Strip whitespace
 
 if received_username == valid_username:
     client_socket.send(b"Username accepted. Please enter your password:")
-    received_password = client_socket.recv(1024).decode()
+    received_password = client_socket.recv(1024).decode().strip()  # Strip whitespace
 
     if received_password == valid_password:
         client_socket.send(b"Authentication successful!")
