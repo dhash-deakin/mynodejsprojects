@@ -1,29 +1,39 @@
 import socket
 
 # Create a socket
-client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-# Connect to the server
-client_socket.connect(('127.0.0.1', 12345))
+# Bind the socket to a specific address and port
+server_socket.bind(('127.0.0.1', 12345))
 
-# User input for username and password
-username = input("Enter your username: ")
-password = input("Enter your password: ")
+# Listen for incoming connections
+server_socket.listen(1)
 
-# Send username to the server
-client_socket.send(username.encode())
+print("Server is listening...")
 
-# Receive server's response
-response = client_socket.recv(1024).decode()
-print(response)
+# Accept a connection
+client_socket, client_address = server_socket.accept()
+print(f"Accepted connection from {client_address}")
 
-if "username accepted" in response.lower():
-    # Send password to the server
-    client_socket.send(password.encode())
+# Server's hardcoded username and password
+valid_username = "user123"
+valid_password = "pass123"
 
-    # Receive authentication result
-    authentication_result = client_socket.recv(1024).decode()
-    print(authentication_result)
+# Authentication logic
+client_socket.send(b"Hello, please enter your username:")
+received_username = client_socket.recv(1024).decode()
 
-# Close the socket
+if received_username == valid_username:
+    client_socket.send(b"Username accepted. Please enter your password:")
+    received_password = client_socket.recv(1024).decode()
+
+    if received_password == valid_password:
+        client_socket.send(b"Authentication successful!")
+    else:
+        client_socket.send(b"Authentication failed. Invalid password.")
+else:
+    client_socket.send(b"Authentication failed. Invalid username.")
+
+# Close the sockets
 client_socket.close()
+server_socket.close()
